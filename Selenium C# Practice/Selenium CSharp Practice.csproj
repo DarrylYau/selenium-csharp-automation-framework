@@ -24,7 +24,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Utilities\" />
+    <None Update="TestData\loginData.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

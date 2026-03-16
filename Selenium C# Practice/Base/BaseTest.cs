@@ -21,9 +21,13 @@ public class BaseTest
     }
 
     [TearDown]
-
     public void TearDown()
     {
-        driver.Quit();
+        if (TestContext.CurrentContext.Result.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
+        {
+            ScreenshotHelper.TakeScreenshot(driver, "failure.png");
+        }    
+        
+        driver?.Dispose();
     }
 }
