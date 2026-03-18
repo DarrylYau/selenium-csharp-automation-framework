@@ -15,6 +15,11 @@ public class LoginTests : BaseTest
 
         bool isLoginSuccessful = false;
         bool isErrorDisplayed = loginPage.IsErrorDisplayed();
+        
+        //Logging more information for Extent Report
+        test.Info($"User: {data.username}");
+        test.Info($"Expected Login Result: {data.expectedSuccess}");
+        test.Info($"Actual Login Result: {isLoginSuccessful}");
 
 
         if (data.expectedSuccess)
@@ -35,10 +40,7 @@ public class LoginTests : BaseTest
                 $"Expected error message for {data.username}, but none displayed.");
         }
 
-        //Logging more information for Extent Report
-        test.Info($"User: {data.username}");
-        test.Info($"Expected Login Result: {data.expectedSuccess}");
-        test.Info($"Actual Login Result: {isLoginSuccessful}");
+ 
 
         if (isLoginSuccessful)
         {

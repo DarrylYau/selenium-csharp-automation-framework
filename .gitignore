@@ -39,7 +39,6 @@ Thumbs.db
 # Selenium / WebDriver specific
 # Ignore generated reports and screenshots
 Reports/
-Screenshots/
 
 # Ignore HTML report files (ExtentReports)
 *.html
