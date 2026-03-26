@@ -41,10 +41,8 @@ jobs:
       if: always()
       uses: actions/upload-artifact@v4
       with:
-         name: ExtentReport
-         path: TestResults/
+         name: TestReport
+         path: Reports/
 
-    - name: Debug - List all files
-      run: ls -R
 
     
