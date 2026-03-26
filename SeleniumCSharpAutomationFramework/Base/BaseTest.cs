@@ -54,52 +54,6 @@ public class BaseTest
             if (status == NUnit.Framework.Interfaces.TestStatus.Failed)
             {
 
-                /*
-                // string projectDir = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.FullName;
-                //string projectDir = TestContext.CurrentContext.WorkDirectory; 
-
-                var baseDir = AppContext.BaseDirectory;
-                var di = new DirectoryInfo(baseDir);
-
-                for (int i = 0; i < 3; i++)
-                {
-                    di = di.Parent;
-                }
-
-                //Console.WriteLine(projectDir);
-                string reportDir = Path.Combine(di.FullName, "Reports");
-                string screenshotDir = Path.Combine(reportDir, "Screenshots");
-                Console.WriteLine(reportDir);
-                Console.WriteLine(screenshotDir);
-
-                if (!Directory.Exists(screenshotDir))
-                {
-                    Directory.CreateDirectory(screenshotDir);
-                }
-
-                string fileName = $"{TestContext.CurrentContext.Test.Name}_{DateTime.Now:yyyyMMdd_HHmmss}.png";
-                string fullPath = Path.Combine(screenshotDir, fileName);
-                //Check driver is still alive
-                if (driver != null)
-                {
-                    try
-                    {
-                        //Take screenshot and save to file
-                        var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
-                        string base64 = screenshot.AsBase64EncodedString;
-                        screenshot.SaveAsFile(fullPath);
-
-                        //Attach Base64 (for report)
-                        test.AddScreenCaptureFromBase64String(base64, "Failure Screenshot");
-                    }
-                    catch
-                    {
-                        Console.WriteLine("Driver not available for screenshot");
-                    }
-
-                }
-                */
-
                 string screenshotPath = CaptureScreenshot();
                 //string base64 = CaptureScreenshot();
                 if(!string.IsNullOrEmpty(screenshotPath))
@@ -142,25 +96,15 @@ public class BaseTest
     {
         try
         {
-            var baseDir = AppContext.BaseDirectory;
-            var di = new DirectoryInfo(baseDir);
+            string screenshotDir = Path.Combine(ExtentManager.ReportDir, "Screenshots");
 
-            for (int i = 0; i < 3; i++)
+            if (!Directory.Exists(screenshotDir))
             {
-                di = di.Parent;
+                Directory.CreateDirectory(screenshotDir);
             }
-            string reportDir = Path.Combine(di.FullName, "Reports");
-            string screenshotDir = Path.Combine(reportDir, "Screenshots");
 
-            
-
-            /*string dir = Path.Combine(TestContext.CurrentContext.WorkDirectory, "Screenshots");
-
-            if (!Directory.Exists(dir))
-                Directory.CreateDirectory(dir);*/
 
             string fileName = $"{TestContext.CurrentContext.Test.Name}_{DateTime.Now:yyyyMMdd_HHmmss}.png";
-            //string fullPath = Path.Combine(dir, fileName);
             string fullPath = Path.Combine(screenshotDir, fileName);
 
             driver.Manage().Window.Size = new System.Drawing.Size(1920, 1080);
@@ -168,8 +112,9 @@ public class BaseTest
 
             var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
             screenshot.SaveAsFile(fullPath);
+
+            return fullPath;
             
-            return Path.Combine("Screenshots", fileName).Replace("\\", "/"); // Return relative path for report linking
             
         }
         catch
@@ -177,52 +122,7 @@ public class BaseTest
             Console.WriteLine("Driver not available for screenshot");
             return null;
         }
-        /* var baseDir = AppContext.BaseDirectory;
-         var di = new DirectoryInfo(baseDir);
-
-         for (int i = 0; i < 3; i++)
-         {
-             di = di.Parent;
-         }
-         string reportDir = Path.Combine(di.FullName, "Reports");
-         string screenshotDir = Path.Combine(reportDir, "Screenshots");
-         Console.WriteLine(reportDir);
-         Console.WriteLine(screenshotDir);
-
-         if (!Directory.Exists(screenshotDir))
-         {
-             Directory.CreateDirectory(screenshotDir);
-         }
-
-         string fileName = $"{TestContext.CurrentContext.Test.Name}_{DateTime.Now:yyyyMMdd_HHmmss}.png";
-         string fullPath = Path.Combine(screenshotDir, fileName);
-
-         if (driver != null)
-         {
-             try
-             {
-                 //Ensure correct window size
-                 driver.Manage().Window.Size = new System.Drawing.Size(1920, 1080);
-
-                 // Small delay to ensure screenshot captures the final state after failure (e.g., error message displayed)
-                 Thread.Sleep(500); 
-
-                 //Take screenshot and save to file
-                 var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
-                // string base64 = screenshot.AsBase64EncodedString;
-                 screenshot.SaveAsFile(fullPath);
-
-
-                 return fullPath;
-             }
-             catch
-             {
-                 Console.WriteLine("Driver not available for screenshot");
-                 return null;
-             }
-
-         }
-         return null;*/
+       
     }
        
 

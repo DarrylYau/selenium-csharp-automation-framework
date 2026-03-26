@@ -2,32 +2,37 @@
 
 using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
+using System.Reflection.Metadata;
 
 public class ExtentManager
 {
+    public static string ReportDir { get; private set; }
     private static ExtentReports extent;
-    private static ExtentSparkReporter reporter;
-
+    
     public static ExtentReports GetInstance()
     {
         if (extent == null)
         {
-            var baseDir = AppContext.BaseDirectory;
-            var di = new DirectoryInfo(baseDir);
+            //Start from base directory
+            var dir = new DirectoryInfo(AppContext.BaseDirectory);
 
-            for (int i = 0; i < 3; i++)
+            //Move up until we find the project root (where .csproj is located)
+            while (dir != null && !dir.GetFiles("*.csproj").Any())
             {
-                di = di.Parent;
+                dir = dir.Parent;
             }
 
-            string reportDir = Path.Combine(di.FullName, "Reports");
+            string projectRoot = dir?.FullName ?? AppContext.BaseDirectory;
+            ReportDir = Path.Combine(projectRoot, "Reports");
 
-            if (!Directory.Exists(reportDir))
+            
+            if (!Directory.Exists(ReportDir))
             {
-                Directory.CreateDirectory(reportDir);
+                Directory.CreateDirectory(ReportDir);
             }
 
-            string reportPath = Path.Combine(reportDir, "TestReport.html");
+            string reportPath = Path.Combine(ReportDir, "TestReport.html");
+
             var reporter = new ExtentSparkReporter(reportPath);
             reporter.Config.DocumentTitle = "Automation Test Report";
             reporter.Config.ReportName = "Selenium C# Test Execution Report"; 
