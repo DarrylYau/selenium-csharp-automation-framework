@@ -44,4 +44,7 @@ jobs:
          name: ExtentReport
          path: TestResults/
 
+    - name: Debug - List all files
+      run: ls -R
+
     
