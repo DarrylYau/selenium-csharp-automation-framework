@@ -44,5 +44,9 @@ jobs:
          name: TestReport
          path: Reports/**
 
+    - name: List Reports folder
+      run: dir Reports /s
+    
+
 
     
