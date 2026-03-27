@@ -57,7 +57,7 @@ public class BaseTest
                 string screenshotPath = CaptureScreenshot();
 
                 string fileName = Path.GetFileName(screenshotPath);
-                string relativePath = Path.Combine("Screenshots", fileName);
+                string relativePath = $"Screenshots/{fileName}";
 
                 //string base64 = CaptureScreenshot();
                 if(!string.IsNullOrEmpty(screenshotPath))
