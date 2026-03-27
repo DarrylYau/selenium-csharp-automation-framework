@@ -44,10 +44,6 @@ jobs:
          name: TestReport
          path: "**/Reports/**"
 
-    - name: List Reports folder
-      run: |
-        if exist Reports (dir Reports /s)
-        else (echo "Reports folder not found")
     
 
 
