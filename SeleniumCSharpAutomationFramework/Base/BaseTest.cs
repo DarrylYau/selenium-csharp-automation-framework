@@ -55,11 +55,15 @@ public class BaseTest
             {
 
                 string screenshotPath = CaptureScreenshot();
+
+                string fileName = Path.GetFileName(screenshotPath);
+                string relativePath = Path.Combine("Screenshots", fileName);
+
                 //string base64 = CaptureScreenshot();
                 if(!string.IsNullOrEmpty(screenshotPath))
                 {
                     //var media = MediaEntityBuilder.CreateScreenCaptureFromBase64String(base64, "Failure Screenshot").Build();
-                    test.Fail("Test failed: " + TestContext.CurrentContext.Result.Message).AddScreenCaptureFromPath(screenshotPath, "Click to view screenshot");
+                    test.Fail("Test failed: " + TestContext.CurrentContext.Result.Message).AddScreenCaptureFromPath(relativePath, "Click to view screenshot");
                 }
                 else
                 {
