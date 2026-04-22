@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Legacy - Used for data-driven NUnit tests
+
+using System;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
