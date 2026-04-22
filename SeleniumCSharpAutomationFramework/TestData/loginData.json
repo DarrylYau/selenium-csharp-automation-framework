@@ -1,3 +1,5 @@
+//Legacy - Used for data-driven NUnit tests
+
 [
   {
     "username": "standard_user",
