@@ -40,8 +40,6 @@ public class TestHooks
 
             if (scenarioContext.TestError != null)
             {
-                string screenshotPath = CaptureScreenshot(driver, scenarioContext.ScenarioInfo.Title);
-
                 _scenario.Value.Fail("Test failed: " + scenarioContext.TestError.Message);
             }
             else
@@ -144,7 +142,7 @@ public class TestHooks
             screenshot.SaveAsFile(fullPath);
         }
 
-        return fullPath;
+        return Path.Combine("Screenshots", fileName);
     }
 
 
